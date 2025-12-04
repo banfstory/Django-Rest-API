@@ -7,9 +7,11 @@ FLASK RESTFUL API INSTRUCTIONS: To run the Flask API, it needs to run on a local
 To run the virtual environment do the following (instructions for windows OS only), start with going into command prompt:
 
 1. Go to root directory of this folder
-2. Enter '.\Scripts\activate' to activate the virtual 
-3. Go to src folder 
-4. Enter 'python manage.py runserver 127.0.0.1:8000' to run the local server or choose whatever address or port number you want
+2. Enter 'python -m venv venv'
+3. Enter 'venv\Scripts\activate' to activate the virtual
+4. Enter 'pip install -r requirements.txt'
+5. Go to src folder 
+6. Enter 'python manage.py runserver 127.0.0.1:8000' to run the local server or choose whatever address or port number you want
 
 RESTFUL API AUTHENTICATION
 In order to access certain resources or perform certain actions, the user needs to authenticate themselves by providing their username and password where they will be given an access token and a refesh token. The access token provides authorization for the user to access to resources and perform actions that are otherwised restricted if no access token was provided. The refresh token will be required to refresh the access token that has expired (access token expires in 7 days but can be changed in the settings.py file located in the django_api folder). These tokens are represented as JSON web tokens (JWT) and these tokens are separated by period in between representing encoded header data and payload data with the signature to ensures that no one can create their own tokens and pretend to be someone else.
