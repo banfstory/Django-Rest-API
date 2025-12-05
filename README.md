@@ -48,12 +48,12 @@ pip install -r requirements.txt
 ```
 This ensures Django and JWT, and other required libraries are installed.
 
-### 4. Navigate to the Flask app directory
+### 4. Navigate to the Django app directory
 ```
 cd src
 ```
 
-### 5. Run the Flask server
+### 5. Run the Django server
 ```
 python manage.py runserver 127.0.0.1:8000
 ```
@@ -85,7 +85,6 @@ Note: You can choose any address or port number you want ('python manage.py runs
 | Create users               | POST   | /api/users                      | No             | "username", "email", "password"       | None                           |
 | Update users               | PUT    | /api/users/:pk                  | Yes (Bearer)   | "username", "email", "password"       | None                           |
 | Delete users               | DELETE | /api/users/:pk                  | Yes (Bearer)   | None                                  | None                           |
-| Set User Image to Default  | PUT    | /api/users/default-image        | Yes (Bearer)   | None                                  | None                           |
 | Get all followers          | GET    | /api/users/followers            | No             | None                                  | "user", "forum"                |
 | Get followers by ID        | GET    | /api/users/int:pk/followers     | No             | None                                  | None                           |
 | Create followers           | POST   | /api/users/followers            | Yes (Bearer)   | "forum"                               | None                           |
@@ -95,7 +94,6 @@ Note: You can choose any address or port number you want ('python manage.py runs
 | Create forum               | POST   | /api/forums                     | Yes (Bearer)   | "name", "about"                       | None                           |
 | Update forum               | PUT    | /api/forums/:pk                 | Yes (Bearer)   | "name", "about"                       | None                           |
 | Delete forum               | DELETE | /api/forums/:pk                 | Yes (Bearer)   | None                                  | None                           |
-| Set Forum Image to Default | PUT    | /api/forums/default-image       | Yes (Bearer)   | None                                  | None                           |
 | Get all posts              | GET    | /api/posts                      | No             | None                                  | "forum", "user"                |
 | Get posts by ID            | GET    | /api/posts/:pk                  | No             | None                                  | None                           |
 | Create posts               | POST   | /api/posts                      | Yes (Bearer)   | "title", "content", "forumId"         | None                           |
@@ -113,7 +111,6 @@ Note: You can choose any address or port number you want ('python manage.py runs
 | Delete replies             | DELETE | /api/replys/:pk                 | Yes (Bearer)   | None                                  | None                           |
 | Create New Access Token    | POST   | /api/token                      | No             | "username", "password"                | None                           |
 | Create New Access Token    | POST   | /api/token/refresh              | No             | "refresh"                             | None                           |
-| Get user or forum image    | GET    | /media/<file_name>              | No             | None                                  | None                           |
 
 ---
 
@@ -155,42 +152,6 @@ GET /api/users?username=admin
 - Fields listed under **Query Parameter** in the table can be included in the URL.
 - Multiple query parameters can be combined with `&`, e.g., `/api/posts?user=123&forum=456`.
 
-### 4. Uploading Images
-Some endpoints allow uploading images using `multipart/form-data`. The key depends on the resource:
-| Resource | Endpoint                | Form Data Key |
-|----------|-------------------------|---------------|
-| User     | /api/users/:pk          | userImage     |
-| Forum    | /api/forums/:pk         | forumImage    |
-
-**Headers:**
-```http
-Authorization: Bearer <ACCESS_TOKEN>
-Content-Type: multipart/form-data
-```
-
-**Example using cURL (User Image):**
-```bash
-curl -X POST http://127.0.0.1:3000/api/users/image/USER_ID \
-  -H "Authorization: Bearer <ACCESS_TOKEN>" \
-  -F "userImage=@/path/to/profile.jpg"
-```
-
-**Example using cURL (Forum Image):**
-```bash
-curl -X POST http://127.0.0.1:3000/api/forums/image/FORUM_ID \
-  -H "Authorization: Bearer <ACCESS_TOKEN>" \
-  -F "forumImage=@/path/to/forum.jpg"
-```
-
-**Notes:**
-- Replace USER_ID or FORUM_ID with the appropriate resource ID.
-- Only one file per request is allowed.
-- Accepted file types: `.png` or `.jpg`.
-- Uploaded images are stored in the following folders:
-  - Users: `assets/users`
-  - Forums: `assets/forums`
-- Ensure the `assets/users` and `assets/forums` folders exist or your storage paths are correctly configured.
-
 ---
 
 ## 📜 License
@@ -199,8 +160,6 @@ This project is licensed under the [MIT License]([https://github.com/banfstory/F
 ---
 
 ------------------------------------------------------------------------------------------------------------------
-
-FLASK RESTFUL API INSTRUCTIONS: To run the Flask API, it needs to run on a local server and it will be running the application from a virtual environment so that all packages will be already pre-installed within the whole folder itself.
 
 To run the virtual environment do the following (instructions for windows OS only), start with going into command prompt:
 
