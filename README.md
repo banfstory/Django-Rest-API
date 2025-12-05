@@ -154,12 +154,5 @@ GET /api/users?username=admin
 ---
 
 ## 📜 License
-This project is licensed under the [MIT License]([https://github.com/banfstory/Forum-Express-API?tab=MIT-1-ov-file](https://github.com/banfstory/Django-Rest-API/blob/main/LICENSE)).
-
-DATA: content <br/>
-
-ENDPOINT: http:<span></span>//127.0.0.1:8000/api/replys/<int:pk>/ <br/>
-METHOD: DELETE <br/>
-DESCRIPTION: Delete user's reply <br/>
-HEADER: Authorization: Bearer *Your access token* <br/>
+This project is licensed under the [MIT License](https://github.com/banfstory/Django-Rest-API/blob/main/LICENSE).
 
