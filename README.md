@@ -1,6 +1,127 @@
 # Django-REST-API
 
-The RESTful API allows users to create their own forums which gives a place for other users to create post
+A **standalone Django REST API** for a forum application.  
+
+The API handles all server-side operations — **user authentication**, **forums**, **posts**, **comments** and **replies** — and communicates via **HTTP requests**. It can be consumed by any client (frontend, mobile app, or other services).
+
+---
+
+## 🚀 Overview
+
+- RESTful API built with **Django**  
+- CRUD endpoints for **users**, **forums**, **posts**, **comments** and **replies**
+- Runs inside a **virtual environment** for dependency isolation
+- Requires **Python 3.10.0** for full compatibility with dependencies
+- JWT-based authentication (access & refresh tokens)  
+- Modular route and schema structure for maintainability  
+
+---
+
+## 🖥️ Running the Django API (Windows Instructions)
+
+Follow these steps to set up and run the Django API locally:
+
+### 0. Verify Python version
+Make sure you are using Python 3.10.0 (otherwise some libraries may not work if a different python version is used):
+```bash
+python --version
+# Should output: Python 3.10.0
+```
+
+### 1. Create a virtual environment
+Create a new virtual environment inside the project folder:
+```bash
+python -m venv venv
+```
+This creates a folder named `venv` that keeps all project dependencies isolated.
+
+### 2. Activate the virtual environment
+```bash
+venv\Scripts\activate
+```
+When activated, your terminal prompt will show `(venv)`.
+
+### 3. Install required libraries
+Install all dependencies listed in requirements.txt:
+```
+pip install -r requirements.txt
+```
+This ensures Django and JWT, and other required libraries are installed.
+
+### 4. Navigate to the Flask app directory
+```
+cd src
+```
+
+### 5. Run the Flask server
+```
+python manage.py runserver 127.0.0.1:8000
+```
+The local server will start at (running at port 8000):
+👉 http://127.0.0.1:8000
+
+Note: You can choose any address or port number you want ('python manage.py runserver <ADDRESS>:<PORT>')
+
+**Examples:**
+- Getting users: http://127.0.0.1:8000/api/users
+- Getting posts: http://127.0.0.1:8000/api/posts
+- Getting comments: http://127.0.0.1:8000/api/comments
+
+---
+
+## 📝 Concepts
+- Forum: A category or section where related discussions take place.
+- Post: A message or topic created within a forum.
+- Comment: A response to a post.
+- Reply: A nested response to a comment, allowing threaded discussions.
+
+---
+
+## 🛠️ Endpoints Reference
+| Description                | Method | Endpoint                        | Authenticated? | Payload                               | Query Parameter                |
+|----------------------------|--------|---------------------------------|----------------|---------------------------------------|--------------------------------|
+| Get all users              | GET    | /api/users                      | No             | None                                  | "limit"                        |
+| Get users by ID            | GET    | /api/users/:id                  | No             | None                                  | None                           |
+| Create users               | POST   | /api/users                      | No             | "username", "email", "password"       | None                           |
+| Update users               | PATCH  | /api/users/:id                  | Yes (Bearer)   | "username", "email", "password"       | None                           |
+| Delete users               | DELETE | /api/users/:id                  | Yes (Bearer)   | None                                  | None                           |
+| Add user image             | POST   | /api/users/image/:id            | Yes (Bearer)   | None                                  | None                           |
+| Remove user image          | DELETE | /api/users/image/:id            | Yes (Bearer)   | None                                  | None                           |
+| Get all forums             | GET    | /api/forums                     | No             | None                                  | "limit", "ownerId"             |
+| Get forum by ID            | GET    | /api/forums/:id                 | No             | None                                  | None                           |
+| Create forum               | POST   | /api/forums                     | Yes (Bearer)   | "name", "about"                       | None                           |
+| Update forum               | PATCH  | /api/forums/:id                 | Yes (Bearer)   | "name", "about"                       | None                           |
+| Delete forum               | DELETE | /api/forums/:id                 | Yes (Bearer)   | None                                  | None                           |
+| Add forum image            | POST   | /api/forums/image/:id           | Yes (Bearer)   | None                                  | None                           |
+| Remove forum image         | DELETE | /api/forums/image/:id           | Yes (Bearer)   | None                                  | None                           |
+| Get all posts              | GET    | /api/posts                      | No             | None                                  | "limit", "userId", "forumId"   |
+| Get posts by ID            | GET    | /api/posts/:id                  | No             | None                                  | None                           |
+| Create posts               | POST   | /api/posts                      | Yes (Bearer)   | "title", "content", "forumId"         | None                           |
+| Update posts               | PATCH  | /api/posts/:id                  | Yes (Bearer)   | "title", "content", "forumId"         | None                           |
+| Delete posts               | DELETE | /api/posts/:id                  | Yes (Bearer)   | None                                  | None                           |
+| Get all comments           | GET    | /api/comments                   | No             | None                                  | "limit", "userId", "postId"    |
+| Get comments by ID         | GET    | /api/comments/:id               | No             | None                                  | None                           |
+| Create comments            | POST   | /api/comments                   | Yes (Bearer)   | "content", "postId"                   | None                           |
+| Update comments            | PATCH  | /api/comments/:id               | Yes (Bearer)   | "content", "postId"                   | None                           |
+| Delete comments            | DELETE | /api/comments/:id               | Yes (Bearer)   | None                                  | None                           |
+| Get all replies            | GET    | /api/replys                     | No             | None                                  | "limit", "userId", "commentId" |
+| Get replies by ID          | GET    | /api/replys/:id                 | No             | None                                  | None                           |
+| Create replies             | POST   | /api/replys                     | Yes (Bearer)   | "content", "commentId"                | None                           |
+| Update replies             | PATCH  | /api/replys/:id                 | Yes (Bearer)   | "content", "commentId"                | None                           |
+| Delete replies             | DELETE | /api/replys/:id                 | Yes (Bearer)   | None                                  | None                           |
+| Get all followers          | GET    | /api/followers                  | No             | None                                  | "limit", "userId", "forumId"   |
+| Get followers by ID        | GET    | /api/followers/:id              | No             | None                                  | None                           |
+| Create followers           | POST   | /api/followers                  | Yes (Bearer)   | "forumId"                             | None                           |
+| Delete followers           | DELETE | /api/followers/:id              | Yes (Bearer)   | None                                  | None                           |
+| Login User                 | POST   | /api/authenticate/login         | No             | "username", "password"                | None                           |
+| Create New Access Token    | POST   | /api/authenticate/token         | No             | "token"                               | None                           |
+| Delete Refresh Token       | DELETE | /api/authenticate/logout        | No             | "token"                               | None                           |
+| Get user image             | GET    | /api/assets/users/<file_name>   | No             | None                                  | None                           |
+| Get forum image            | GET    | /api/assets/forums/<file_name>  | No             | None                                  | None                           |
+
+---
+
+------------------------------------------------------------------------------------------------------------------
 
 FLASK RESTFUL API INSTRUCTIONS: To run the Flask API, it needs to run on a local server and it will be running the application from a virtual environment so that all packages will be already pre-installed within the whole folder itself.
 
