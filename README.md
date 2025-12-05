@@ -80,44 +80,121 @@ Note: You can choose any address or port number you want ('python manage.py runs
 ## 🛠️ Endpoints Reference
 | Description                | Method | Endpoint                        | Authenticated? | Payload                               | Query Parameter                |
 |----------------------------|--------|---------------------------------|----------------|---------------------------------------|--------------------------------|
-| Get all users              | GET    | /api/users                      | No             | None                                  | "limit"                        |
-| Get users by ID            | GET    | /api/users/:id                  | No             | None                                  | None                           |
+| Get all users              | GET    | /api/users                      | No             | None                                  | "q", "username", "page"        |
+| Get users by ID            | GET    | /api/users/:pk                  | No             | None                                  | None                           |
 | Create users               | POST   | /api/users                      | No             | "username", "email", "password"       | None                           |
-| Update users               | PATCH  | /api/users/:id                  | Yes (Bearer)   | "username", "email", "password"       | None                           |
-| Delete users               | DELETE | /api/users/:id                  | Yes (Bearer)   | None                                  | None                           |
-| Add user image             | POST   | /api/users/image/:id            | Yes (Bearer)   | None                                  | None                           |
-| Remove user image          | DELETE | /api/users/image/:id            | Yes (Bearer)   | None                                  | None                           |
-| Get all forums             | GET    | /api/forums                     | No             | None                                  | "limit", "ownerId"             |
-| Get forum by ID            | GET    | /api/forums/:id                 | No             | None                                  | None                           |
+| Update users               | PUT    | /api/users/:pk                  | Yes (Bearer)   | "username", "email", "password"       | None                           |
+| Delete users               | DELETE | /api/users/:pk                  | Yes (Bearer)   | None                                  | None                           |
+| Set User Image to Default  | PUT    | /api/users/default-image        | Yes (Bearer)   | None                                  | None                           |
+| Get all followers          | GET    | /api/users/followers            | No             | None                                  | "user", "forum"                |
+| Get followers by ID        | GET    | /api/users/int:pk/followers     | No             | None                                  | None                           |
+| Create followers           | POST   | /api/users/followers            | Yes (Bearer)   | "forum"                               | None                           |
+| Delete followers           | DELETE | /api/users/int:pk/followers/    | Yes (Bearer)   | None                                  | None                           |
+| Get all forums             | GET    | /api/forums                     | No             | None                                  | "q", "name", "owner", "page"   |
+| Get forum by ID            | GET    | /api/forums/:pk                 | No             | None                                  | None                           |
 | Create forum               | POST   | /api/forums                     | Yes (Bearer)   | "name", "about"                       | None                           |
-| Update forum               | PATCH  | /api/forums/:id                 | Yes (Bearer)   | "name", "about"                       | None                           |
-| Delete forum               | DELETE | /api/forums/:id                 | Yes (Bearer)   | None                                  | None                           |
-| Add forum image            | POST   | /api/forums/image/:id           | Yes (Bearer)   | None                                  | None                           |
-| Remove forum image         | DELETE | /api/forums/image/:id           | Yes (Bearer)   | None                                  | None                           |
-| Get all posts              | GET    | /api/posts                      | No             | None                                  | "limit", "userId", "forumId"   |
-| Get posts by ID            | GET    | /api/posts/:id                  | No             | None                                  | None                           |
+| Update forum               | PUT    | /api/forums/:pk                 | Yes (Bearer)   | "name", "about"                       | None                           |
+| Delete forum               | DELETE | /api/forums/:pk                 | Yes (Bearer)   | None                                  | None                           |
+| Set Forum Image to Default | PUT    | /api/forums/default-image       | Yes (Bearer)   | None                                  | None                           |
+| Get all posts              | GET    | /api/posts                      | No             | None                                  | "forum", "user"                |
+| Get posts by ID            | GET    | /api/posts/:pk                  | No             | None                                  | None                           |
 | Create posts               | POST   | /api/posts                      | Yes (Bearer)   | "title", "content", "forumId"         | None                           |
-| Update posts               | PATCH  | /api/posts/:id                  | Yes (Bearer)   | "title", "content", "forumId"         | None                           |
-| Delete posts               | DELETE | /api/posts/:id                  | Yes (Bearer)   | None                                  | None                           |
-| Get all comments           | GET    | /api/comments                   | No             | None                                  | "limit", "userId", "postId"    |
-| Get comments by ID         | GET    | /api/comments/:id               | No             | None                                  | None                           |
+| Update posts               | PUT    | /api/posts/:pk                  | Yes (Bearer)   | "title", "content", "forumId"         | None                           |
+| Delete posts               | DELETE | /api/posts/:pk                  | Yes (Bearer)   | None                                  | None                           |
+| Get all comments           | GET    | /api/comments                   | No             | None                                  | "post", "user"                 |
+| Get comments by ID         | GET    | /api/comments/:pk               | No             | None                                  | None                           |
 | Create comments            | POST   | /api/comments                   | Yes (Bearer)   | "content", "postId"                   | None                           |
-| Update comments            | PATCH  | /api/comments/:id               | Yes (Bearer)   | "content", "postId"                   | None                           |
-| Delete comments            | DELETE | /api/comments/:id               | Yes (Bearer)   | None                                  | None                           |
-| Get all replies            | GET    | /api/replys                     | No             | None                                  | "limit", "userId", "commentId" |
-| Get replies by ID          | GET    | /api/replys/:id                 | No             | None                                  | None                           |
+| Update comments            | PUT    | /api/comments/:pk               | Yes (Bearer)   | "content", "postId"                   | None                           |
+| Delete comments            | DELETE | /api/comments/:pk               | Yes (Bearer)   | None                                  | None                           |
+| Get all replies            | GET    | /api/replys                     | No             | None                                  | "comment", "user"              |
+| Get replies by ID          | GET    | /api/replys/:pk                 | No             | None                                  | None                           |
 | Create replies             | POST   | /api/replys                     | Yes (Bearer)   | "content", "commentId"                | None                           |
-| Update replies             | PATCH  | /api/replys/:id                 | Yes (Bearer)   | "content", "commentId"                | None                           |
-| Delete replies             | DELETE | /api/replys/:id                 | Yes (Bearer)   | None                                  | None                           |
-| Get all followers          | GET    | /api/followers                  | No             | None                                  | "limit", "userId", "forumId"   |
-| Get followers by ID        | GET    | /api/followers/:id              | No             | None                                  | None                           |
-| Create followers           | POST   | /api/followers                  | Yes (Bearer)   | "forumId"                             | None                           |
-| Delete followers           | DELETE | /api/followers/:id              | Yes (Bearer)   | None                                  | None                           |
-| Login User                 | POST   | /api/authenticate/login         | No             | "username", "password"                | None                           |
-| Create New Access Token    | POST   | /api/authenticate/token         | No             | "token"                               | None                           |
-| Delete Refresh Token       | DELETE | /api/authenticate/logout        | No             | "token"                               | None                           |
-| Get user image             | GET    | /api/assets/users/<file_name>   | No             | None                                  | None                           |
-| Get forum image            | GET    | /api/assets/forums/<file_name>  | No             | None                                  | None                           |
+| Update replies             | PUT    | /api/replys/:pk                 | Yes (Bearer)   | "content", "commentId"                | None                           |
+| Delete replies             | DELETE | /api/replys/:pk                 | Yes (Bearer)   | None                                  | None                           |
+| Create New Access Token    | POST   | /api/token                      | No             | "username", "password"                | None                           |
+| Create New Access Token    | POST   | /api/token/refresh              | No             | "refresh"                             | None                           |
+| Get user or forum image    | GET    | /media/<file_name>              | No             | None                                  | None                           |
+
+---
+
+## 🧪 Using the API
+### 1. Authentication
+Protected endpoints require a **Bearer token** in the `Authorization` header.
+Example:
+```http
+POST /api/forums
+Authorization: Bearer <ACCESS_TOKEN>
+```
+- Replace `<ACCESS_TOKEN>` with the token received from `/api/token` POST request (access token).
+- The `refresh` token can be used to get a new access token from `/api/refresh` POST request (in the payload, "token" represents the "refresh" token).
+- Endpoints marked **Yes (Bearer)** in the table require this header.
+
+### 2. Payload (Request Body)
+For endpoints that accept data (POST/PATCH), send a **JSON body** with the fields listed in the table.
+Example: Create a forum
+```http
+POST /api/forums
+Authorization: Bearer <ACCESS_TOKEN>
+Content-Type: application/json
+```
+Request Body:
+```json
+{
+  "name": "Programming",
+  "about": "All programming related discussions"
+}
+```
+- Only include the fields required by the endpoint (see **Payload** column).
+
+### 3. Query Parameters
+Some GET endpoints support **query parameters** for filtering.
+Example: Get a user who's username is admin
+```http
+GET /api/users?username=admin
+```
+- Fields listed under **Query Parameter** in the table can be included in the URL.
+- Multiple query parameters can be combined with `&`, e.g., `/api/posts?user=123&forum=456`.
+
+### 4. Uploading Images
+Some endpoints allow uploading images using `multipart/form-data`. The key depends on the resource:
+| Resource | Endpoint                | Form Data Key |
+|----------|-------------------------|---------------|
+| User     | /api/users/:pk          | userImage     |
+| Forum    | /api/forums/:pk         | forumImage    |
+
+**Headers:**
+```http
+Authorization: Bearer <ACCESS_TOKEN>
+Content-Type: multipart/form-data
+```
+
+**Example using cURL (User Image):**
+```bash
+curl -X POST http://127.0.0.1:3000/api/users/image/USER_ID \
+  -H "Authorization: Bearer <ACCESS_TOKEN>" \
+  -F "userImage=@/path/to/profile.jpg"
+```
+
+**Example using cURL (Forum Image):**
+```bash
+curl -X POST http://127.0.0.1:3000/api/forums/image/FORUM_ID \
+  -H "Authorization: Bearer <ACCESS_TOKEN>" \
+  -F "forumImage=@/path/to/forum.jpg"
+```
+
+**Notes:**
+- Replace USER_ID or FORUM_ID with the appropriate resource ID.
+- Only one file per request is allowed.
+- Accepted file types: `.png` or `.jpg`.
+- Uploaded images are stored in the following folders:
+  - Users: `assets/users`
+  - Forums: `assets/forums`
+- Ensure the `assets/users` and `assets/forums` folders exist or your storage paths are correctly configured.
+
+---
+
+## 📜 License
+This project is licensed under the [MIT License]([https://github.com/banfstory/Forum-Express-API?tab=MIT-1-ov-file](https://github.com/banfstory/Django-Rest-API/blob/main/LICENSE)).
 
 ---
 
