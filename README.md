@@ -13,7 +13,6 @@ The API handles all server-side operations — **user authentication**, **forums
 - Runs inside a **virtual environment** for dependency isolation
 - Requires **Python 3.10.0** for full compatibility with dependencies
 - JWT-based authentication (access & refresh tokens)  
-- Modular route and schema structure for maintainability  
 
 ---
 
