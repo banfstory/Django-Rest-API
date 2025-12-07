@@ -83,10 +83,10 @@ Note: You can choose any address or port number you want ('python manage.py runs
 | Get users by ID            | GET    | /api/users/:pk                  | No             | None                                  | None                           |
 | Create users               | POST   | /api/users                      | No             | "username", "email", "password"       | None                           |
 | Update users               | PUT    | /api/users/:pk                  | Yes (Bearer)   | "username", "email"                   | None                           |
-| Get all followers          | GET    | /api/users/followers            | No             | None                                  | "user", "forum"                |
-| Get followers by ID        | GET    | /api/users/:pk/followers     | No             | None                                  | None                           |
+| Get all followers          | GET    | /api/users/followers            | No             | None                                  | None                           |
+| Get followers by ID        | GET    | /api/users/:pk/followers        | No             | None                                  | None                           |
 | Create followers           | POST   | /api/users/followers            | Yes (Bearer)   | "forum"                               | None                           |
-| Delete followers           | DELETE | /api/users/:pk/followers/    | Yes (Bearer)   | None                                  | None                           |
+| Delete followers           | DELETE | /api/users/:pk/followers/       | Yes (Bearer)   | None                                  | None                           |
 | Get all forums             | GET    | /api/forums                     | No             | None                                  | "q", "name", "owner", "page"   |
 | Get forum by ID            | GET    | /api/forums/:pk                 | No             | None                                  | None                           |
 | Create forum               | POST   | /api/forums                     | Yes (Bearer)   | "name", "about"                       | None                           |
